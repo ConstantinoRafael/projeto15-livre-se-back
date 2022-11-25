@@ -1,9 +1,12 @@
 import { Router } from "express";
-import { getCarrinho } from "../controllers/user.controllers.js";
+import { addBookCarrinho } from "../controllers/carrinho.controllers.js";
+import { getBookCarrinho } from "../controllers/carrinho.controllers.js";
 
 const router = Router();
 
-router.post("/get", getCarrinho);
+
+router.get("/carrinho", getBookCarrinho);
+router.post("/carrinho", addBookCarrinho)
 
 
 export default router;

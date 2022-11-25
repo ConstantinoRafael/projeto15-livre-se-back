@@ -14,4 +14,9 @@ try {
 const db = mongoClient.db("livre-se");
 export const usersCollection = db.collection("users");
 export const sessionsCollection = db.collection("sessions");
+
 export const carrinhoCollection = db.collection("carrinho")
+
+
+export const booksCollection = db.collection("books");
+

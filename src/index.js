@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import userRoutes from "./routes/user.routes.js"
+import bookRoutes from "./routes/book.routes.js"
 
 
 const app = express();
@@ -11,6 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(userRoutes);
+app.use(bookRoutes)
 
 
 

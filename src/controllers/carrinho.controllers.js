@@ -1,13 +1,25 @@
-import { carrinhoCollection } from "../database/db.js";
-import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from "uuid";
+import { booksCollection, carrinhoCollection } from "../database/db.js";
 
-export async function getCarrinho(req, res) {
+export async function addBookCarrinho(req, res) {
+    const bookCarrinho = res.locals.bookCarrinho;
+  
+    try {
+      await carrinhoCollection.insertOne( bookCarrinho );
+      res.status(201).send("livro enviado para carrinho!");
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
+
+
+export async function getBookCarrinho(req, res) {
    
   try {
-     //ainda nao foi criado o collection livros
-    //const livrosCarrinho = await db.collection("livros").find().toArray();
-    //res.send(livrosCarrinho);
+     
+    const livrosCarrinho = await carrinhoCollection.find().toArray();
+    res.send(livrosCarrinho);
+
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
