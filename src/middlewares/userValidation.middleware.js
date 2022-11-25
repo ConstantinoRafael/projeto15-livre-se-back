@@ -1,4 +1,4 @@
-import { usersCollection } from "../database/db.js";
+import { sessionsCollection, usersCollection } from "../database/db.js";
 import { userSchema } from "../models/users.model.js";
 import bcrypt from "bcrypt";
 
@@ -23,11 +23,11 @@ export async function signInBodyValidation(req, res, next) {
   try {
     const user = await usersCollection.findOne({ email });
     if (!user) {
-     return res.sendStatus(401);
+      return res.sendStatus(401);
     }
     const passwordOk = bcrypt.compareSync(password, user.password);
     if (!passwordOk) {
-     return res.sendStatus(401);
+      return res.sendStatus(401);
     }
 
     res.locals.user = user;
@@ -35,5 +35,30 @@ export async function signInBodyValidation(req, res, next) {
     console.log(err);
     res.sendStatus(500);
   }
-  next()
+  next();
+}
+
+export async function userRoutesValidation(req, res, next) {
+  const { authorization } = req.headers;
+  const token = authorization?.replace("Bearer ", "");
+
+  if (!token) {
+    return res.status(401).send("falta o token");
+  }
+
+  try {
+    const session = await sessionsCollection.findOne({ token });
+    const user = await usersCollection.findOne({ _id: session?.userId });
+
+    if (!user) {
+      return res.sendStatus(401);
+    }
+
+    res.locals.user = user;
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+
+  next();
 }
