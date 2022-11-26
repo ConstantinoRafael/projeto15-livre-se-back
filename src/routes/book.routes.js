@@ -6,6 +6,6 @@ import { userRoutesValidation } from "../middlewares/userValidation.middleware.j
 const router = Router();
 
 router.post("/books", bookSchemaValidation, addBook);
-router.get("/books", userRoutesValidation, findBooks);
+router.get("/books", findBooks);
 
 export default router;

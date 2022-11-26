@@ -14,9 +14,25 @@ export async function addBook(req, res) {
 
 export async function findBooks(req, res) {
   try {
-    const books = await booksCollection.find().toArray();
+    const romanceBooks = await booksCollection
+      .find({ genre: "romance" })
+      .toArray();
 
-    res.send({ books });
+    const misteryCrimeBooks = await booksCollection
+      .find({ genre: "policial e suspense" })
+      .toArray();
+
+    const sciFiFantasyBooks = await booksCollection
+      .find({ genre: "ficção científica e fantasia" })
+      .toArray();
+
+    const genresBooks = {
+      romance: romanceBooks,
+      mistery: misteryCrimeBooks,
+      scifi: sciFiFantasyBooks,
+    };
+
+    res.send(genresBooks);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
