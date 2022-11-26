@@ -26,11 +26,11 @@ export async function findBooks(req, res) {
       .find({ genre: "ficção científica e fantasia" })
       .toArray();
 
-    const genresBooks = {
-      romance: romanceBooks,
-      mistery: misteryCrimeBooks,
-      scifi: sciFiFantasyBooks,
-    };
+    const genresBooks = [
+      { genre: "Romance", books: romanceBooks },
+      { genre: "Policial e Supense", books: misteryCrimeBooks },
+      { genre: "Ficção científica e Fantasia", books: sciFiFantasyBooks },
+    ];
 
     res.send(genresBooks);
   } catch (err) {
