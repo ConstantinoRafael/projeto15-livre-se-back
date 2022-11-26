@@ -1,10 +1,15 @@
 import { booksCollection, carrinhoCollection } from "../database/db.js";
 
 export async function addBookCarrinho(req, res) {
-    const bookCarrinho = res.locals.bookCarrinho;
+    const {title, image, price} = req.body
   
+    const message = {
+      title,
+      image,
+      price
+    };
     try {
-      await carrinhoCollection.insertOne( bookCarrinho );
+      await carrinhoCollection.insertOne( message );
       res.status(201).send("livro enviado para carrinho!");
     } catch (err) {
       console.log(err);

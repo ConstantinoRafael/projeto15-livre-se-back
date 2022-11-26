@@ -6,7 +6,7 @@ const router = Router();
 
 
 router.get("/carrinho", getBookCarrinho);
-router.post("/carrinho", addBookCarrinho)
+router.post("/carrinho", addBookCarrinho);
 
 
 export default router;
