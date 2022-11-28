@@ -33,8 +33,9 @@ export async function getBookCarrinho(req, res) {
 export async function deleteBookCarrinho(req, res) {
    
   try {
-     
-    await carrinhoCollection.findByIdAndDelete(req.params.id)
+    
+    await carrinhoCollection.deleteOne({_id: req.params.id})
+    res.status(201).send("livro deletado")
     
 
   } catch (err) {
