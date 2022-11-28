@@ -30,3 +30,16 @@ export async function getBookCarrinho(req, res) {
     res.sendStatus(500);
   }
 }
+
+export async function deleteBookCarrinho(req, res) {
+   
+  try {
+     
+    await carrinhoCollection.findByIdAndDelete(req.params.id)
+    
+
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+}
