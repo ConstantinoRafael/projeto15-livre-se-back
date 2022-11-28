@@ -1,4 +1,4 @@
-import { booksCollection, carrinhoCollection } from "../database/db.js";
+import { carrinhoCollection } from "../database/db.js";
 
 export async function addBookCarrinho(req, res) {
     const {title, image, price} = req.body
@@ -17,7 +17,6 @@ export async function addBookCarrinho(req, res) {
     }
   }
 
-
 export async function getBookCarrinho(req, res) {
    
   try {
@@ -29,4 +28,18 @@ export async function getBookCarrinho(req, res) {
     console.log(err);
     res.sendStatus(500);
   }
+}
+
+
+export async function deleteBookCarrinho(req, res) {
+  try{
+    
+    await carrinhoCollection.findByIdAndDelete(req.params.id)
+
+  } catch(err){
+    console.log(err);
+    res.sendStatus(500);
+  }
+   
+
 }
